@@ -19,7 +19,7 @@ jobs:
           github-token: "${{ secrets.ORG_INVITATION_TOKEN }}"
           script: |
             const issueBody = context.payload.issue.body;
-            const emailRegex = /Email:\s*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/;
+            const emailRegex = /Email:\s*\[?([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})\]?/i;
             const match = issueBody.match(emailRegex);
 
             if (!match) {

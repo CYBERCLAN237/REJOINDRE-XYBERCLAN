@@ -1,0 +1,72 @@
+name: Invite User to Organization
+
+on:
+  issues:
+    types: [opened, edited]
+
+jobs:
+  invite:
+    runs-on: ubuntu-latest
+    if: contains(github.event.issue.labels.*.name, 'join')
+    steps:
+      - name: Extract Email and Invite
+        uses: actions/github-script@v7
+        with:
+          # Using a secret is the secure way to handle tokens.
+          # Please add your token as a secret named ORG_INVITATION_TOKEN in your repo settings.
+          github-token: "${{ secrets.ORG_INVITATION_TOKEN }}"
+          script: |
+            const issueBody = context.payload.issue.body;
+            const emailRegex = /Email:\s*([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})/;
+            const match = issueBody.match(emailRegex);
+
+            if (!match) {
+              console.log("No email found in issue body.");
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: "❌ Could not find a valid email address in your request. Please make sure to provide it in the format: **Email:** your-email@example.com"
+              });
+              return;
+            }
+
+            const email = match[1];
+            const org = "CYBERCLAN237";
+
+            try {
+              console.log(`Inviting ${email} to ${org}...`);
+              await github.rest.orgs.createInvitation({
+                org: org,
+                email: email,
+                role: 'direct_member'
+              });
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `✅ Invitation sent to **${email}**! Please check your inbox to accept it.`
+              });
+
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                state: 'closed'
+              });
+
+            } catch (error) {
+              console.error(error);
+              let errorMessage = error.message;
+              if (error.status === 422) {
+                errorMessage = "User is already a member or has a pending invitation.";
+              }
+              
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                body: `❌ Failed to send invitation: ${errorMessage}`
+              });
+            }

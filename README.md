@@ -1,6 +1,6 @@
- # Join XYBERCLAN Comunity
+ # Join XYBERCLAN Community
 
-If you'd like to join the XYBERCLAN Comunity, please submit a request by creating an issue using the template below.
+If you'd like to join the XYBERCLAN Community, please submit a request by creating an issue using the template below.
 
 ## How to Request to Join
 

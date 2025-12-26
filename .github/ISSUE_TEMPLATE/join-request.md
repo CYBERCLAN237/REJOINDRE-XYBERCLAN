@@ -1,6 +1,6 @@
 ---
 name: Join Request
-about: Request to join CYBERCLAN237 Organization
+about: Request to join XYBERCLAN Community
 title: "[Join Request] {Your Name}"
 labels: request, join
 assignees: ''
@@ -11,6 +11,6 @@ assignees: ''
 
 **Email:** [Your Email Address]
 
-**Why do you want to join CYBERCLAN237?** 
+**Why do you want to join XYBERCLAN?** 
 
 [Add a brief explanation here]

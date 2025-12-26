@@ -46,7 +46,7 @@ jobs:
                 owner: context.repo.owner,
                 repo: context.repo.repo,
                 issue_number: context.issue.number,
-                body: `✅ Invitation sent to **${email}**! Please check your inbox to accept it.`
+                body: `✅ We have reviewed your request and an invitation to join **XYBERCLAN** has been sent to **${email}**! Please check your inbox to accept it.`
               });
 
               await github.rest.issues.update({

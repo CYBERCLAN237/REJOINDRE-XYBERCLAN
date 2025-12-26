@@ -11,3 +11,6 @@ If you'd like to join the XYBERCLAN Community, please submit a request by creati
 5. Click **"Submit new issue."**
 
 We will review your request and send you an invitation!
+
+> [!TIP]
+> **Make your membership public**: Once you've joined, if you want the **XYBERCLAN** badge to appear on your GitHub profile, go to the [**People**](https://github.com/orgs/CYBERCLAN237/people) tab in the organization, find your name, and change the visibility from **Private** to **Public**.
